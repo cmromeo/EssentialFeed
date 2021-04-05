@@ -101,7 +101,10 @@ class URLSessionHTTPClientTests: XCTestCase {
     
     private func resultErrorFor(data: Data?, response: URLResponse?, error: Error?, file: StaticString = #file, line: UInt = #line) -> Error? {
         
-        let result = resultFor(data: data, response: response, error: error, file: file, line: line)
+        guard let result = resultFor(data: data, response: response, error: error, file: file, line: line) else {
+            XCTFail("Expected failure no result instead", file:file, line: line)
+            return nil
+        }
         
         switch result {
         case let .failure(error):
