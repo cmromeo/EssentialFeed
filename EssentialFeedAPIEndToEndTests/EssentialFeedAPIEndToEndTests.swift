@@ -11,43 +11,48 @@ import EssentialFeed
 
 class EssentialFeedAPIEndToEndTests: XCTestCase {
     
-    func test_EndToEndTestServerGETFeedResult_matchesFixedTestAccountData() {
-        
+    func test_endToEndTestServerGETFeedResult_matchesFixedTestAccountData() {
         switch getFeedResult() {
         case let .success(items)?:
             XCTAssertEqual(items.count, 8, "Expected 8 items in the test account feed")
+            XCTAssertEqual(items[0], expectedItem(at: 0))
+            XCTAssertEqual(items[1], expectedItem(at: 1))
+            XCTAssertEqual(items[2], expectedItem(at: 2))
+            XCTAssertEqual(items[3], expectedItem(at: 3))
+            XCTAssertEqual(items[4], expectedItem(at: 4))
+            XCTAssertEqual(items[5], expectedItem(at: 5))
+            XCTAssertEqual(items[6], expectedItem(at: 6))
+            XCTAssertEqual(items[7], expectedItem(at: 7))
             
-            items.enumerated().forEach{ (index, item) in
-                XCTAssertEqual(item, expectedItem(at: index))
-            }
         case let .failure(error)?:
-            XCTFail("Expected successful feed download but got \(error) instead")
+            XCTFail("Expected successful feed result, got \(error) instead")
+            
         default:
-            XCTFail("Expected successful feed download but no result instead")
+            XCTFail("Expected successful feed result, got no result instead")
         }
     }
     
     //MARK: - Helpers
     
     private func getFeedResult(file: StaticString = #file, line: UInt = #line) -> LoadFeedResult? {
-            let testServerURL = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed")!
-            let client = URLSessionHTTPClient()
-            let loader = RemoteFeedLoader(url: testServerURL, client: client)
+        let testServerURL = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed")!
+        let client = URLSessionHTTPClient()
+        let loader = RemoteFeedLoader(url: testServerURL, client: client)
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
         
-            trackForMemoryLeaks(client, file: file, line: line)
-            trackForMemoryLeaks(loader, file: file, line: line)
-
-            let exp = expectation(description: "Wait for load completion")
-
-            var receivedResult: LoadFeedResult?
-            loader.load { result in
-                receivedResult = result
-                exp.fulfill()
-            }
-            wait(for: [exp], timeout: 5.0)
-
-            return receivedResult
+        let exp = expectation(description: "Wait for load completion")
+        
+        var receivedResult: LoadFeedResult?
+        loader.load { result in
+            receivedResult = result
+            exp.fulfill()
         }
+        wait(for: [exp], timeout: 5.0)
+        
+        return receivedResult
+    }
+    
     
     private func expectedItem(at index: Int) -> FeedItem {
         return FeedItem(
