@@ -32,11 +32,11 @@ class FeedStore{
     typealias DeletionCompletion = (Error?) -> Void
     
     enum ReceivedMessage: Equatable {
-            case deleteCachedFeed
-            case insert([FeedItem], Date)
-        }
+        case deleteCachedFeed
+        case insert([FeedItem], Date)
+    }
     private(set) var receivedMessages = [ReceivedMessage]()
-
+    
     private var deletionCompletions = [DeletionCompletion]()
     
     func deleteCachedFeed(completion: @escaping DeletionCompletion) {
@@ -85,15 +85,15 @@ class CacheFeedUseCaseTests: XCTestCase {
     }
     
     func test_save_requestsNewCacheInsertionWithTimestampOnSuccessfulDeletion() {
-            let timestamp = Date()
-            let items = [uniqueItem(), uniqueItem()]
-            let (sut, store) = makeSUT(currentDate: { timestamp })
-
-            sut.save(items)
-            store.completeDeletionSuccessfully()
-
-            XCTAssertEqual(store.receivedMessages, [.deleteCachedFeed, .insert(items, timestamp)])
-        }
+        let timestamp = Date()
+        let items = [uniqueItem(), uniqueItem()]
+        let (sut, store) = makeSUT(currentDate: { timestamp })
+        
+        sut.save(items)
+        store.completeDeletionSuccessfully()
+        
+        XCTAssertEqual(store.receivedMessages, [.deleteCachedFeed, .insert(items, timestamp)])
+    }
     
     // MARK: - Helpers
     
