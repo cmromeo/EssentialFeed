@@ -46,7 +46,7 @@ class CacheFeedUseCaseTests: XCTestCase {
     // MARK: - Helpers
     
     private func uniqueItem() -> FeedItem {
-        return FeedItem(id: UUID().uuidString, description: "any", location: "any", imageURL: anyURL())
+        return FeedItem(id: UUID(), description: "any", location: "any", imageURL: anyURL())
     }
     
     private func anyURL() -> URL {
