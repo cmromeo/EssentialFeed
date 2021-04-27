@@ -31,7 +31,7 @@ class LocalFeedLoader {
 
 class FeedStore{
     typealias DeletionCompletion = (Error?) -> Void
-    
+    var insertCallCount = 0
     enum ReceivedMessage: Equatable {
         case deleteCachedFeed
         case insert([FeedItem], Date)
