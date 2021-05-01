@@ -7,7 +7,7 @@
 
 import Foundation
 //Remember: Feed Item should not have any knowledge of the API, no hard coded coding keys
-public struct FeedItem: Equatable {
+public struct FeedImage: Equatable {
     public let id: UUID
     public let description: String?
     public let location: String?

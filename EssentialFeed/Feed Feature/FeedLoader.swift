@@ -8,7 +8,7 @@
 import Foundation
 
 public enum LoadFeedResult {
-    case success([FeedItem])
+    case success([FeedImage])
     case failure(Error) //temporarily Error as we do not know yet future error types and we want to avoid too many upfront decisions
 }
 
