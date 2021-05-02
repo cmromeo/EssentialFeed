@@ -11,27 +11,27 @@ import EssentialFeed
 
 class EssentialFeedAPIEndToEndTests: XCTestCase {
     /*
-    func demo(){
-        //this thing is done earliest, in applicationdidfinishlaunching
-        
-        //10MB Memory, same disk, remote diskpath
-        let cache = URLCache(memoryCapacity: 10 * 1024 * 1024, diskCapacity: 10 * 1024 * 1024, diskPath: nil)
-        
-        //we can create our own custom Session
-        let configuration = URLSessionConfiguration.default
-        configuration.urlCache = cache
-        configuration.requestCachePolicy = .reloadIgnoringCacheData
-        let session = URLSession(configuration: configuration)
-        
-        let url = URL(string: "https://any-url.com")
-        
-        //cache policy per request
-        let request = URLRequest(url: url, cachePolicy: .returnCacheDataDontLoad, timeoutInterval: 30)
-        
-        //alternatively
-//        URLCache.shared = cache
-    }
-    */
+     func demo(){
+     //this thing is done earliest, in applicationdidfinishlaunching
+     
+     //10MB Memory, same disk, remote diskpath
+     let cache = URLCache(memoryCapacity: 10 * 1024 * 1024, diskCapacity: 10 * 1024 * 1024, diskPath: nil)
+     
+     //we can create our own custom Session
+     let configuration = URLSessionConfiguration.default
+     configuration.urlCache = cache
+     configuration.requestCachePolicy = .reloadIgnoringCacheData
+     let session = URLSession(configuration: configuration)
+     
+     let url = URL(string: "https://any-url.com")
+     
+     //cache policy per request
+     let request = URLRequest(url: url, cachePolicy: .returnCacheDataDontLoad, timeoutInterval: 30)
+     
+     //alternatively
+     //        URLCache.shared = cache
+     }
+     */
     func test_endToEndTestServerGETFeedResult_matchesFixedTestAccountData() {
         
         guard let loadResult = getFeedResult() else {
@@ -39,22 +39,22 @@ class EssentialFeedAPIEndToEndTests: XCTestCase {
         }
         
         switch loadResult {
-        case let .success(items):
-            XCTAssertEqual(items.count, 8, "Expected 8 items in the test account feed")
-            XCTAssertEqual(items[0], expectedItem(at: 0))
-            XCTAssertEqual(items[1], expectedItem(at: 1))
-            XCTAssertEqual(items[2], expectedItem(at: 2))
-            XCTAssertEqual(items[3], expectedItem(at: 3))
-            XCTAssertEqual(items[4], expectedItem(at: 4))
-            XCTAssertEqual(items[5], expectedItem(at: 5))
-            XCTAssertEqual(items[6], expectedItem(at: 6))
-            XCTAssertEqual(items[7], expectedItem(at: 7))
+        case let .success(imageFeed)?:
+            XCTAssertEqual(imageFeed.count, 8, "Expected 8 images in the test account image feed")
+            XCTAssertEqual(imageFeed[0], expectedImage(at: 0))
+            XCTAssertEqual(imageFeed[1], expectedImage(at: 1))
+            XCTAssertEqual(imageFeed[2], expectedImage(at: 2))
+            XCTAssertEqual(imageFeed[3], expectedImage(at: 3))
+            XCTAssertEqual(imageFeed[4], expectedImage(at: 4))
+            XCTAssertEqual(imageFeed[5], expectedImage(at: 5))
+            XCTAssertEqual(imageFeed[6], expectedImage(at: 6))
+            XCTAssertEqual(imageFeed[7], expectedImage(at: 7))
             
         case let .failure(error):
             XCTFail("Expected successful feed result, got \(error) instead")
             
-//        default:
-//            XCTFail("Expected successful feed result, got no result instead")
+        //        default:
+        //            XCTFail("Expected successful feed result, got no result instead")
         }
     }
     
@@ -62,10 +62,10 @@ class EssentialFeedAPIEndToEndTests: XCTestCase {
     
     private func getFeedResult(file: StaticString = #file, line: UInt = #line) -> LoadFeedResult? {
         let testServerURL = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed")!
-//        let client = URLSessionHTTPClient()
+        //        let client = URLSessionHTTPClient()
         //do not cache responses to disk to avoid data that affects the next batch of tests
         let client = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
-
+        
         let loader = RemoteFeedLoader(url: testServerURL, client: client)
         trackForMemoryLeaks(client, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)
@@ -83,12 +83,12 @@ class EssentialFeedAPIEndToEndTests: XCTestCase {
     }
     
     
-    private func expectedItem(at index: Int) -> FeedImage {
+    private func expectedImage(at index: Int) -> FeedImage {
         return FeedImage(
             id: id(at: index),
             description: description(at: index),
             location: location(at: index),
-            imageURL: imageURL(at: index))
+            url: imageURL(at: index))
     }
     
     private func id(at index: Int) -> String {
