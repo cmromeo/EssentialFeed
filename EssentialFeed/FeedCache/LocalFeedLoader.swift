@@ -46,18 +46,23 @@ public final class LocalFeedLoader {
             case .empty:
                 completion(.success([]))
             }
-            }
+        }
     }
     
     public func validateCache() {
-        store.retrieve { _ in }
-        store.deleteCachedFeed { _ in }
+        store.retrieve { [unowned self] result in
+            switch result {
+            case .failure:
+                self.store.deleteCachedFeed { _ in }
+            default: break
+            }
+        }
     }
     
     private var maxCacheAgeInDays: Int {
         return 7
     }
-
+    
     
     private func validate(_ timestamp: Date) -> Bool {
         let calendar = Calendar(identifier: .gregorian)
