@@ -185,7 +185,7 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
             exp.fulfill()
         }
         action()
-        wait(for: [exp], timeout: 1.0)
+        wait(for: [exp], timeout: 2.0)
     }
     
     //spies must only capture values
