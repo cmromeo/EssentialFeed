@@ -149,7 +149,6 @@
 				AD08BBE6263C356D005C056B /* FeedStore.swift */,
 				AD08BBFB263D9603005C056B /* LocalFeedImage.swift */,
 				AD08BC2C264655A5005C056B /* FeedCachePolicy.swift */,
-				AD08BC36264779E6005C056B /* CodableFeedStore.swift */,
 			);
 			path = FeedCache;
 			sourceTree = "<group>";
@@ -198,6 +197,7 @@
 			children = (
 				AD757D51264A00EB002E7881 /* FeedStore.xcdatamodeld */,
 				AD757D432649FDB3002E7881 /* CoreDataFeedStore.swift */,
+				AD08BC36264779E6005C056B /* CodableFeedStore.swift */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
