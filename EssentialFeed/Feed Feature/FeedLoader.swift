@@ -7,10 +7,7 @@
 
 import Foundation
 
-public enum LoadFeedResult {
-    case success([FeedImage])
-    case failure(Error) //temporarily Error as we do not know yet future error types and we want to avoid too many upfront decisions
-}
+public typealias LoadFeedResult = Result<[FeedImage], Error>
 
 public protocol FeedLoader {
     func load(completion: @escaping (LoadFeedResult) -> Void)
