@@ -19,35 +19,37 @@ public class URLSessionHTTPClient: HTTPClient {
     
     public func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
         //make it fail using wrong url:
-//        let url = URL(string: "http://wrong-url.com")!
+        //        let url = URL(string: "http://wrong-url.com")!
         session.dataTask(with: url) { data,response,error in
-            if let error = error {
-                completion(.failure(error))
-            }else if let data = data, let response = response as? HTTPURLResponse {
-                completion(.success((data, response)))
-            }else{
-                completion(.failure(UnexpectedValuesRepresentation()))
-            }
+            completion(Result {
+                if let error = error {
+                    throw error
+                } else if let data = data, let response = response as? HTTPURLResponse {
+                    return (data, response)
+                } else {
+                    throw UnexpectedValuesRepresentation()
+                }
+            })
         }.resume()
     }
 }
 /*
-extension URLSession: HTTPClient {
-    
-    private struct UnexpectedValuesRepresentation: Error {}
-    public func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void){
-        //make it fail using wrong url:
-//        let url = URL(string: "http://wrong-url.com")!
-        dataTask(with: url) { data,response,error in
-            if let error = error {
-                completion(.failure(error))
-            }else if let data = data, let response = response as? HTTPURLResponse {
-                completion(.success(data, response))
-            }else{
-                completion(.failure(UnexpectedValuesRepresentation()))
-            }
-        }.resume()
-    }
-}
-*/
+ extension URLSession: HTTPClient {
+ 
+ private struct UnexpectedValuesRepresentation: Error {}
+ public func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void){
+ //make it fail using wrong url:
+ //        let url = URL(string: "http://wrong-url.com")!
+ dataTask(with: url) { data,response,error in
+ if let error = error {
+ completion(.failure(error))
+ }else if let data = data, let response = response as? HTTPURLResponse {
+ completion(.success(data, response))
+ }else{
+ completion(.failure(UnexpectedValuesRepresentation()))
+ }
+ }.resume()
+ }
+ }
+ */
 
