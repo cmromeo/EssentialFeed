@@ -28,7 +28,6 @@ public final class CoreDataFeedStore: FeedStore {
     }
     
     public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
-        print("FUNC DEleteCachedFeed CoreData")
         perform { context in
             completion(Result {
                 let managedCache = try ManagedCache.newUniqueInstance(in: context)
@@ -41,12 +40,9 @@ public final class CoreDataFeedStore: FeedStore {
     }
     
     public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-        print("FUNC DEleteCachedFeed CoreData")
         perform { context in
-            print("hello perform delete cachefeed")
             completion(Result {
                 try ManagedCache.find(in: context).map(context.delete).map(context.save)
-                print("FUNC DEleteCachedFeed success call back")
             })
         }
     }

@@ -22,26 +22,20 @@ extension LocalFeedLoader: FeedLoader {
     public typealias SaveResult = Result<Void, Error>
     
     public func save(_ feed: [FeedImage], completion: @escaping (SaveResult) -> Void) {
-        print("SAVE LOCALFEEDLOADER called main before delete ")
         store.deleteCachedFeed { [weak self] deletionResult in //wag doble
             guard let self = self else { return }
-            print("DELETE LOCALFEEDLOADER callback ")
             switch deletionResult {
             case .success:
-                print("SAVE LOCALFEEDLOADER called success")
                 self.cache(feed, with: completion)
             case let .failure(error):
-                print("SAVE LOCALFEEDLOADER called failure")
                 completion(.failure(error))
             }
         }
     }
     
     private func cache(_ feed: [FeedImage], with completion: @escaping (SaveResult) -> Void) {
-        print("Insert will call")
         store.insert(feed.toLocal(), timestamp: currentDate()) { [weak self] insertionResult in
             guard self != nil else { return }
-            print("Insert called")
             completion(insertionResult)
         }
     }
