@@ -28,29 +28,31 @@ public final class CoreDataFeedStore: FeedStore {
     }
     
     public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
+        print("FUNC DEleteCachedFeed CoreData")
         perform { context in
             completion(Result {
                 let managedCache = try ManagedCache.newUniqueInstance(in: context)
                 managedCache.timestamp = timestamp
                 managedCache.feed = ManagedFeedImage.images(from: feed, in: context)
-                
+
                 try context.save()
-                completion(.success(()))
             })
         }
-        
     }
     
     public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
+        print("FUNC DEleteCachedFeed CoreData")
         perform { context in
+            print("hello perform delete cachefeed")
             completion(Result {
                 try ManagedCache.find(in: context).map(context.delete).map(context.save)
-                completion(.success(()))
+                print("FUNC DEleteCachedFeed success call back")
             })
         }
     }
     private func perform(_ action: @escaping (NSManagedObjectContext) -> Void) {
         let context = self.context
+        print("hello perform")
         context.perform { action(context) }
     }
 }
