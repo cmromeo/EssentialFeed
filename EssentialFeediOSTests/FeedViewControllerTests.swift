@@ -8,7 +8,7 @@ import XCTest
 import UIKit
 import EssentialFeed
 
-final class FeedViewController: UIViewController {
+final class FeedViewController: UITableViewController {
     private var loader: FeedLoader?
     
     convenience init(loader: FeedLoader) {
