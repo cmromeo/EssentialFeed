@@ -17,10 +17,9 @@
 		AD08BC232644E335005C056B /* FeedCacheTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD08BC222644E335005C056B /* FeedCacheTestHelpers.swift */; };
 		AD08BC282644E361005C056B /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD08BC272644E361005C056B /* SharedTestHelpers.swift */; };
 		AD08BC2D264655A5005C056B /* FeedCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD08BC2C264655A5005C056B /* FeedCachePolicy.swift */; };
-		AD16E61C267ED725001FCFFB /* FeedViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD16E619267ED3BC001FCFFB /* FeedViewControllerTests.swift */; };
-		AD16E61D267ED733001FCFFB /* FeedViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD16E619267ED3BC001FCFFB /* FeedViewControllerTests.swift */; };
 		AD16E620267EDAA1001FCFFB /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF59DA926154D590062BF3A /* EssentialFeed.framework */; platformFilter = ios; };
 		AD16E621267EDAA1001FCFFB /* EssentialFeed.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ADF59DA926154D590062BF3A /* EssentialFeed.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AD16E626267EDE20001FCFFB /* FeedViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD16E619267ED3BC001FCFFB /* FeedViewControllerTests.swift */; };
 		AD642C572618951A002D9B45 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD642C562618951A002D9B45 /* XCTestCase+MemoryLeakTracking.swift */; };
 		AD642C5D26198CF5002D9B45 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD642C5C26198CF5002D9B45 /* URLSessionHTTPClient.swift */; };
 		AD642C692619E6D7002D9B45 /* EssentialFeedAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD642C682619E6D7002D9B45 /* EssentialFeedAPIEndToEndTests.swift */; };
@@ -675,7 +674,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD16E61D267ED733001FCFFB /* FeedViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,7 +720,7 @@
 				AD757D222649596C002E7881 /* FeedStoreSpecs.swift in Sources */,
 				ADF59DCF261555A70062BF3A /* LoadFeedFromRemoteUseCaseTests.swift in Sources */,
 				AD757D3F2649FC8F002E7881 /* CoreDataFeedStoreTests.swift in Sources */,
-				AD16E61C267ED725001FCFFB /* FeedViewControllerTests.swift in Sources */,
+				AD16E626267EDE20001FCFFB /* FeedViewControllerTests.swift in Sources */,
 				AD757D2726495C48002E7881 /* XCTestCase+FeedStoreSpecs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
